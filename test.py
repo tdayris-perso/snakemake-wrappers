@@ -904,3 +904,7 @@ def test_plass_single():
 
 def test_tximport():
     run("bio/tximport", ["snakemake", "txi.RDS", "--use-conda", "-F"])
+
+
+def test_cp():
+    run("bio/cp", ["snakemake", "destination/A.txt", "--use-conda", "-F"])
