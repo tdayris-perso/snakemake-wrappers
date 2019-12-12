@@ -17,4 +17,4 @@ rule cp_target:
     log:
         "logs/cp/{input}.logs"
     wrapper:
-        "https://bitbucket.org/tdayris/snakemake-wrappers/raw/5c3251a217a76522ff0b2f411a3aa12871f304e5/bio/cp/"
+        "https://raw.githubusercontent.com/tdayris-perso/snakemake-wrappers/cp/bio/cp/"
