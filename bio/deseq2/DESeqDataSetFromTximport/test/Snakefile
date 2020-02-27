@@ -1,0 +1,14 @@
+rule cp_target:
+    input:
+        tximport = "",
+        coldata = ""
+    output:
+        "deseq2/dds.RDS"
+    params:
+        design = ""
+    message:
+        "Testing DESeqDataSetFromTximport"
+    log:
+        "logs/deseq2/DESeqDataSetFromTximport/{input}.logs"
+    wrapper:
+        "https://raw.githubusercontent.com/tdayris-perso/snakemake-wrappers/deseq2_dataset/bio/deseq2/DESeqDataSetFromTximport/"
