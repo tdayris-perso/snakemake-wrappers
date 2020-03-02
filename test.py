@@ -1160,3 +1160,7 @@ def test_fasterq_dump():
 
 def test_bwa_mem_samblaster():
     run("bio/bwa/mem-samblaster", ["snakemake", "mapped/a.bam", "--use-conda", "-F"])
+
+
+def test_tx_to_gene():
+    run("bio/tx_to_gene/gtf", ["snakemake", "tx2gene.tsv", "--use-conda", "-F"])
