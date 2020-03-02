@@ -12,10 +12,10 @@ dds <- base::readRDS(dds_path);
 
 # Check if user provided optional parameters
 extra <- "";
-if ("extra" %in% names(snakemake@input)) {
+if ("extra" %in% names(snakemake@params)) {
   extra <- base::paste0(
     ", ",
-    base::as.character(x = snakemake@input[["extra"]])
+    base::as.character(x = snakemake@params[["extra"]])
   );
 }
 
