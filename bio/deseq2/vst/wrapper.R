@@ -8,9 +8,13 @@ dds_path <- base::as.character(x = snakemake@input[["dds"]]);
 dds <- base::readRDS(file = dds_path);
 
 # Recover extra parameters
-extra <- base::as.character(
-  x = snakemake@params[["extra"]]
-)
+extra <- "";
+if ("extra" %in% names(snakemake@params)) {
+  extra <- base::paste0(
+    ", ",
+    base::as.character(x = snakemake@params[["extra"]])
+  );
+}
 
 # Create object
 vst <- base::eval(
