@@ -1,5 +1,6 @@
+---
 name: estimateDispersions
-author: 
+author:
   - Thibault Dayris
 description: Estimate the dispersions for a DESeqDataSet
 input:
