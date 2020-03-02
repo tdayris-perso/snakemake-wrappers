@@ -9,22 +9,28 @@ base::library("DESeq2");     # Differential Gene expression
 dds_path <- base::as.character(x = snakemake@input[["dds"]]);
 dds <- base::readRDS(dds_path);
 
-# Cast locfunc as function name
-extra <- base::as.character(x = snakemake@input[["extra"]]);
+
+# Check if user provided optional parameters
+extra <- "";
+if ("extra" %in% names(snakemake@input)) {
+  extra <- base::paste0(
+    ", ",
+    base::as.character(x = snakemake@input[["extra"]])
+  );
+}
+
 
 # Create object
 dds <- base::eval(
   base::parse(
     text = base::paste0(
-      "DESeq2::estimateSizeFactors(dds, ", extra, ");"
+      "DESeq2::estimateSizeFactors(dds", extra, ");"
     )
   )
 );
-dds <- DESeq2::estimateSizeFactors(dds));
-print(dds);
 
 # Save as RDS
-output_path <- base::as.character(snakemake@output[["esf"]]);
+output_path <- base::as.character(snakemake@output[["dds"]]);
 base::saveRDS(
   obj = dds,
   file = output_path
