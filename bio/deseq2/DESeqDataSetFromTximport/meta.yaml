@@ -1,3 +1,4 @@
+---
 name: DESeqDataSetFromTximport
 author: Thibault Dayris
 description: Import counts from Tximport into DESeq2
@@ -9,3 +10,7 @@ output:
 notes: |
   Depending on your formula, your design file can contain any number of
   optional columns
+
+  Parameters:
+
+  * design: the R formulae used to performs differential expression
