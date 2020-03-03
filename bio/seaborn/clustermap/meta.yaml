@@ -4,7 +4,7 @@ description: Build a clustered heatmap
 authors:
   - Thibault Dayris
 input:
-  - A TSV-formatted normalized counts of all samples
+  - A TSV-formatted normalized counts table of all samples
 output:
   - A PNG-formatted image of the clustered heatmap
 notes: |

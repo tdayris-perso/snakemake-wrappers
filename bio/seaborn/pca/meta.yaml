@@ -1,0 +1,11 @@
+---
+name: PCA
+description: Perform PCA on normalized counts
+authors:
+  - Thibault Dayris
+input:
+  - A TSV-formatted normalized counts table of all samples
+output:
+  - A PNG-formatted image of two selected axes of the PCA
+notes: |
+  Parameters:

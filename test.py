@@ -1172,3 +1172,7 @@ def test_pandas_add_genes():
 
 def test_seaborn_clustermap():
     run("bio/seaborn/clustermap", ["snakemake", "clustermap.png", "--use-conda", "-F"])
+
+
+def test_seaborn_pca():
+    run("bio/seaborn/pca", ["snakemake", "pca_PC1_PC2.png", "--use-conda", "-F"])
