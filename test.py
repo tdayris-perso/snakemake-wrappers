@@ -1164,3 +1164,7 @@ def test_bwa_mem_samblaster():
 
 def test_pandas_merge_salmon():
     run("bio/pandas/salmon", ["snakemake", "table.tsv", "--use-conda", "-F"])
+
+
+def test_pandas_add_genes():
+    run("bio/pandas/add_genes", ["snakemake", "result.tsv", "--use-conda", "-F"])

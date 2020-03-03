@@ -2,7 +2,8 @@
 # conding: utf-8
 
 """
-Join multiple Sleuth files, rename columns and stack them on demand
+Join multiple Salmon files, rename columns and
+add genes name if annotation is provided
 """
 
 __author__ = "Thibault Dayris"

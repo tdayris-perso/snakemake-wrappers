@@ -1,5 +1,6 @@
 ---
 name: Pandas Merge
+description: Merge salmon quant.sf files
 authors:
   - Thibault Dayris
 input:

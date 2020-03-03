@@ -1,0 +1,12 @@
+---
+name: Add Genes
+authors:
+  - Thibault Dayris
+description: Add a gene/transcript column to a given tsv
+input:
+  - A TSV-formatted text file with a gene/transcript id/name.
+output:
+  - A TSV-formatted text file with complete identifier and name for each gene.
+notes: |
+  With the "col" parameters, one must give the name of
+  the column that contains transcript/gene name
