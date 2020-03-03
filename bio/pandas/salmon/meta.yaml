@@ -8,4 +8,14 @@ input:
 output:
   - A TSV-formatted text file with all TPM or RawCounts
 notes: |
-  As a parameter within "col", any column of the Salmon quant file shall be set.
+  Parameters:
+
+  * suffix: Suffix that is to be removed from sample identifier
+  * prefix: Prefix that is to be removed from sample identifier
+  * column: The column to keep in the merged table
+  * gencode: Remove patch from sample identifiers
+  * drop_na: Drop full NA targets
+  * drop_null: Drop full null targets
+  * genes: Work on genes and not on transcripts
+  * header: There is a header in the tx2gene table
+  * index_label: The index label in the tx2gene

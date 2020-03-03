@@ -1168,3 +1168,7 @@ def test_pandas_merge_salmon():
 
 def test_pandas_add_genes():
     run("bio/pandas/add_genes", ["snakemake", "result.tsv", "--use-conda", "-F"])
+
+
+def test_seaborn_clustermap():
+    run("bio/seaborn/clustermap", ["snakemake", "clustermap.png", "--use-conda", "-F"])

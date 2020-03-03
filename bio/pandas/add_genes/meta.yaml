@@ -8,5 +8,7 @@ input:
 output:
   - A TSV-formatted text file with complete identifier and name for each gene.
 notes: |
-  With the "col" parameters, one must give the name of
-  the column that contains transcript/gene name
+  Parameters:
+
+  * header: There is a header in the tx2gene table
+  * genes: Work on genes rather than transcripts
