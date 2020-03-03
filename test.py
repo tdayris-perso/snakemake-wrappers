@@ -1176,3 +1176,7 @@ def test_seaborn_clustermap():
 
 def test_seaborn_pca():
     run("bio/seaborn/pca", ["snakemake", "pca_PC1_PC2.png", "--use-conda", "-F"])
+
+
+def test_pariwise_scatterplot():
+    run("bio/seaborn/pairwise-scatterplot", ["snakemake", "plot.png", "--use-conda", "-F"])
