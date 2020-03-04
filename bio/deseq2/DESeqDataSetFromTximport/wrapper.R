@@ -31,7 +31,7 @@ formula <- stats::as.formula(
 dds <- DESeq2::DESeqDataSetFromTximport(
   txi = txi,
   colData = design,
-  desogn = formula
+  design = formula
 );
 
 # Save as RDS
