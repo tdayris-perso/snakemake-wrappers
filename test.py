@@ -1160,3 +1160,7 @@ def test_fasterq_dump():
 
 def test_bwa_mem_samblaster():
     run("bio/bwa/mem-samblaster", ["snakemake", "mapped/a.bam", "--use-conda", "-F"])
+
+
+def test_deseq2_estimateDispersions():
+    run("bio/deseq2/estimateDispersions", ["snakemake", "disp.RDS", "--use-conda", "-F"])
