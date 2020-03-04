@@ -1,7 +1,8 @@
 # This script takes a deseq2 dataset object and performs
 # a variance stabilizing transformations transformation on it
 
-base::library("DESeq2");     # Differential Gene expression
+base::library("DESeq2");                 # Differential Gene expression
+base::library("SummarizedExperiment");   # Handle large datasets
 
 # Cast input path as character
 dds_path <- base::as.character(x = snakemake@input[["dds"]]);
@@ -18,7 +19,7 @@ if ("extra" %in% names(snakemake@params)) {
 
 # Create object
 vst <- base::eval(
-  base::pasrse(
+  base::parse(
     text = base::paste0(
       "DESeq2::vst(object = dds, ", extra, ");"
     )
