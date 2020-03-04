@@ -5,15 +5,28 @@
 
 base::library("DESeq2");     # Differential Gene expression
 
-# Cast input path as character
+# Load DESeq2 dataset
 dds_path <- base::as.character(
   x = snakemake@input[["dds"]]
 );
 dds <- base::readRDS(file = dds_path);
 
+# Build extra parameters for DESeq2 nbinomWaldTest
+nbinom_extra <- "";
+if ("nbinom_extra" %in% snakemake@params) {
+  nbinom_extra <- base::paste0(
+    ", ",
+    base::as.character(x = snakemake@params[["nbinom_extra"]])
+  );
+}
+
 # Create object
-wald <- DESeq2::nbinomWaldTest(
-  object = dds
+wald <- base::eval(
+  base::parse(
+    text = base::paste0(
+      "DESeq2::nbinomWaldTest(object = dds", nbinom_extra, ");"
+    )
+  )
 );
 
 # Save results
@@ -30,28 +43,46 @@ names <- DESeq2::resultsNames(
   object = wald
 );
 
-output_tsv <- base::as.character(
-  x = snakemake@output[["tsv"]]
-);
+output_prefix <- snakemake@output[["tsv"]];
+if (! base::file.exists(output_prefix)) {
+  base::dir.create(
+    path = output_prefix,
+    recursive = TRUE
+  );
+}
+
+alpha_threshold <- 0.5;
+if ("alpha_threshold" %in% names(snakemake@params)) {
+  alpha_threshold <- base::as.numeric(
+    x = snakemake@params[["alpha_threshold"]]
+  );
+}
+
+fc_threshold <- 0.001;
+if ("fc_threshold" %in% names(snakemake@params)) {
+  fc_threshold <- base::as.numeric(
+    x = snakemake@params[["fc_threshold"]]
+  );
+}
 
 for (resultname in names) {
-  results <- DESeq2::results(
-    object = dds,
-    contrast = resultname,
+  results_frame <- DESeq2::results(
+    object = wald,
+    name = resultname,
     independentFiltering = TRUE,
-    alpha = snakemake@params[["alpha_threshold"]],
-    lfcThreshold = snakemake@params[["fc_threshold"]],
+    alpha = alpha_threshold,
+    lfcThreshold = fc_threshold,
     pAdjustMethod = "BH",
     cooksCutoff = TRUE
   );
 
   results_path <- base::file.path(
-    output_tsv,
+    output_prefix,
     base::paste0("Deseq2_", resultname)
   );
 
   utils::write.table(
-    x = results,
+    x = results_frame,
     file = results_path,
     quote = FALSE,
     sep = "\t",
