@@ -86,6 +86,6 @@ for (resultname in names) {
     file = results_path,
     quote = FALSE,
     sep = "\t",
-    row.names = FALSE
+    row.names = TRUE
   );
 }
