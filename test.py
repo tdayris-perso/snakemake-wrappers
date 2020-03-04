@@ -906,5 +906,5 @@ def test_tximport():
     run("bio/tximport", ["snakemake", "txi.RDS", "--use-conda", "-F"])
 
 
-def test_cp():
-    run("bio/cp", ["snakemake", "destination/A.txt", "--use-conda", "-F"])
+def test_deseq2_deseq_dataset_from_tximport():
+    run("bio/deseq2/DESeqDataSetFromTximport", ["snakemake", "deseq2/dds.RDS", "--use-conda", "-F"])
