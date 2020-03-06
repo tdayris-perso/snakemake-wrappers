@@ -1180,3 +1180,7 @@ def test_seaborn_pca():
 
 def test_pariwise_scatterplot():
     run("bio/seaborn/pairwise-scatterplot", ["snakemake", "plot.png", "--use-conda", "-F"])
+
+
+def test_volcano_deseq():
+    run("bio/EnhancedVolcano/volcano-deseq2", ["snakemake", "Volcano.png", "--use-conda", "-F"])

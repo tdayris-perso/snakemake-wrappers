@@ -1,0 +1,20 @@
+rule test_volcano:
+    input:
+        deseq2_tsv = "diff.tsv"
+    output:
+        png = "Volcano.png"
+    message:
+        "Testing Volcano plot"
+    threads:
+        1
+    resources:
+        mem_mb = (
+            lambda wildcards, attempt: min(attempt * 1024, 10240)
+        ),
+        time_min = (
+            lambda wildcards, attempt: min(attempt * 20, 200)
+        )
+    log:
+        "logs/test_volcano.log"
+    wrapper:
+        "master/bio/EnhancedVolcano/volcano-deseq2"
