@@ -1184,3 +1184,10 @@ def test_pariwise_scatterplot():
 
 def test_volcano_deseq():
     run("bio/EnhancedVolcano/volcano-deseq2", ["snakemake", "Volcano.png", "--use-conda", "-F"])
+
+
+def test_box_count():
+    run("bio/seaborn/box-counts", ["snakemake", "--use-conda", "plot.png", "-F"])
+
+def test_box_count_drop_null():
+    run("bio/seaborn/box-counts", ["snakemake", "--use-conda", "plot_null_dropped.png", "-F"])
