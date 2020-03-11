@@ -1191,3 +1191,6 @@ def test_box_count():
 
 def test_box_count_drop_null():
     run("bio/seaborn/box-counts", ["snakemake", "--use-conda", "plot_null_dropped.png", "-F"])
+
+def test_gene_box_count():
+    run("bio/seaborn/gene-count", ["snakemake", "--use-conda", "gene_plots", "-F"])
