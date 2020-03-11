@@ -15,9 +15,16 @@ import seaborn
 from os.path import basename, dirname
 from snakemake.utils import makedirs
 
+logging.basicConfig(
+    filename=snakemake.log[0],
+    filemode="w",
+    level=logging.DEBUG
+)
+
 # Build output directory if necessary
 if (outdir := basename(dirname(snakemake.output["png"]))) != "":
     makedirs(outdir)
+    logging.debug(f"Directory: '{outdir}' created.")
 
 condition_array = snakemake.params["conditions"]
 
@@ -31,10 +38,16 @@ data = pandas.read_csv(
 
 # Remove possible text annotations and validate
 data = data[list(data.select_dtypes(include=[numpy.number]).columns.values)]
+logging.debug("Loaded dataset:")
+logging.debug(data.head())
+
+
 if (nbs := len(data.columns.tolist())) != (nbc := len(condition_array)):
-    raise ValueError(
+    message = (
         f"Expected same number of samples and conditions, got {nbs} != {nbc}"
     )
+    logging.error(message)
+    raise ValueError(message)
 
 # Create custom colormap for heatmap values
 cmap = seaborn.diverging_palette(
@@ -60,12 +73,13 @@ data = (data.reset_index()
             .set_index(["Conditions", "index"])
             .T)
 
-
 # Convert the palette into vectors
 condition_colors = (pandas.Series(condition_array, index=data.columns)
                           .map(condition_lut))
 
 data = data.corr()
+logging.debug("Correlation table:")
+logging.debug(data.head())
 
 # Build graph
 ax = seaborn.clustermap(
@@ -108,3 +122,4 @@ matplotlib.pyplot.savefig(
     snakemake.output["png"],
     bbox_inches="tight"
 )
+logging.info("Process over")

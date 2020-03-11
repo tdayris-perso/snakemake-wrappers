@@ -12,13 +12,19 @@ import numpy
 import pandas
 import seaborn
 
-
 from os.path import basename, dirname
 from snakemake.utils import makedirs
+
+logging.basicConfig(
+    filename=snakemake.log[0],
+    filemode="w",
+    level=logging.DEBUG
+)
 
 # Build output directory if necessary
 if (outdir := basename(dirname(snakemake.output["png"]))) != "":
     makedirs(outdir)
+    logging.debug(f"Directory: '{outdir}' created.")
 
 # Load normalized counts
 data = pandas.read_csv(
@@ -41,6 +47,9 @@ data = pandas.DataFrame(data.stack())
 data.reset_index(inplace=True)
 data.columns = ["Target_id", "Sample", "Normalized_Counts"]
 
+logging.debug("Head of the post-processed dataframe:")
+logging.debug(data.head())
+
 seaborn.set(
     style="ticks",
     palette="pastel"
@@ -62,3 +71,4 @@ matplotlib.pyplot.savefig(
     snakemake.output["png"],
     bbox_inches="tight"
 )
+logging.debug("Process over.")

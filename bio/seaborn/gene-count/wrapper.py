@@ -12,13 +12,19 @@ import numpy
 import pandas
 import seaborn
 
-
 from os.path import join
 from snakemake.utils import makedirs
+
+logging.basicConfig(
+    filename=snakemake.log[0],
+    filemode="w",
+    level=logging.DEBUG
+)
 
 # Build output directory if necessary
 if (outdir := snakemake.output["dir"]) != "":
     makedirs(outdir)
+    logging.debug(f"Directory: '{outdir}' created.")
 
 # Load normalized counts
 data = pandas.read_csv(
@@ -41,13 +47,20 @@ data["Condition"] = [
     for sample in data.Sample
 ]
 
+logging.debug("Head of post processed dataset:")
+logging.debug(data.head())
+
 
 for target in snakemake.params["targets"]:
+    logging.info(f"Working on '{target}'")
+
     # Define output path
     output_path = join(outdir, f"{target}.png")
 
     # Subset to searched targets
     tmp = data[data["Target_id"] == target]
+    logging.debug("Head of plotted data:")
+    logging.debug(tmp.head())
 
     # Build plot
     seaborn.set(
@@ -73,3 +86,4 @@ for target in snakemake.params["targets"]:
         bbox_inches="tight"
     )
     matplotlib.pyplot.clf()
+logging.info("Process over.")
