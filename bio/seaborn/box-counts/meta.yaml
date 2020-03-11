@@ -1,6 +1,6 @@
 ---
 name: Seaborn Box plots
-description: Build a count bos-plot
+description: Build a count box-plot
 authors:
   - Thibault Dayris
 input:
