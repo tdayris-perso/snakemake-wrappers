@@ -62,6 +62,11 @@ for target in snakemake.params["targets"]:
     logging.debug("Head of plotted data:")
     logging.debug(tmp.head())
 
+    if len(tmp) == 0:
+        msg = f"No target named '{target}' in dataset"
+        logging.error(msg)
+        raise ValueError(msg)
+
     # Build plot
     seaborn.set(
         style="ticks",
