@@ -3,7 +3,7 @@ rule test_pcaexplorer_annotation:
         dds = "dds.RDS",
         tr2gene = "tr2gene.tsv"
     output:
-        annot = "annot.RDS"
+        annotation  = "annot.RDS"
     message:
         "Testing annotation wrapper"
     threads:
