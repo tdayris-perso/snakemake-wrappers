@@ -1,11 +1,14 @@
 #!/usr/bin/R
 
-# This script takes a deseq2 dataset object and performs
-# a regularized-logarithmic transformation on it
+# This script takes a deseq2 dataset object, a deseq2
+# transformed data counts object, and an organism
+# name, then returns a limma quick pca 2 gene onthology
 
 base::library(package = "DESeq2");        # Differential Gene expression
 base::library(package = "pcaExplorer");   # Handles PCA
 base::library(package = "DelayedArray");  # Handle in-memory array-like datasets
+base::library(package = "org.Hs.eg.db");  # Human genome annotation
+base::library(package = "org.Mm.eg.db");  # Mouse genome annotation
 
 # Load specified input files
 dds_path <- base::as.character(
@@ -28,7 +31,7 @@ limmago <- pcaExplorer::limmaquickpca2go(
   se = dst,
   organism = snakemake@params[["organism"]],
   background_genes = bg_ids,
-  inputType = "ENSEMBL"
+  inputType = "HUGO"
 );
 limmago_output <- base::as.character(
   x = snakemake@output[["limmago"]]

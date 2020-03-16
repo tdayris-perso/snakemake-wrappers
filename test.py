@@ -1163,3 +1163,11 @@ def test_bwa_mem_samblaster():
 
 def test_pcaexplorer_annotation():
     run("bio/pcaExplorer/annotation", ["snakemake", "annot.RDS", "--use-conda", "-F"])
+
+
+def test_pcaexplorer_limmago():
+    run("bio/pcaExplorer/limmago", ["snakemake", "limmago.RDS", "--use-conda", "-F"])
+
+
+def test_pcaexplorer_pcaplot():
+    run("bio/pcaExplorer/PCA", ["snakemake", "plot.png", "--use-conda", "-F"])
