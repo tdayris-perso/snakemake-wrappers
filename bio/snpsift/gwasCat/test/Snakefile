@@ -1,0 +1,12 @@
+rule test_snpsift_gwascat:
+    input:
+        vcf = "in.vcf",
+        gwascat = "annotation.vcf"
+    output:
+        out = "out.vcf"
+    message:
+        "Testing SnpSift GWAS catalog annotation"
+    log:
+        "annotate.log"
+    wrapper:
+        "master/bio/snpfit/gwasCat"
