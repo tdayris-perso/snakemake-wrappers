@@ -9,4 +9,4 @@ rule test_snpsift_dbnsfp:
     log:
         "annotate.log"
     wrapper:
-        "master/bio/snpfit/gwasCat"
+        "master/bio/snpfit/dbnsfp"
