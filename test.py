@@ -1176,3 +1176,7 @@ def test_snpsift_gwascat():
 
 def test_snpsift_dbnsfp():
     run("bio/snpsift/dbnsfp", ["snakemake", "out.vcf", "--use-conda", "-F"])
+
+
+def test_snpsift_genesets():
+    run("bio/snpsift/genesets", ["snakemake", "out.vcf", "--use-conda", "-F"])

@@ -1,0 +1,12 @@
+rule test_snpsift_gmt:
+    input:
+        vcf = "in.vcf",
+        gmt = "fake_set.gmt"
+    output:
+        out = "out.vcf"
+    message:
+        "Testing SnpSift Genes sets annotation"
+    log:
+        "annotate.log"
+    wrapper:
+        "master/bio/snpfit/geneSets"
