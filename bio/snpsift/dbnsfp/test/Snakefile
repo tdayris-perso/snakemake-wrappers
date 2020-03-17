@@ -1,0 +1,12 @@
+rule test_snpsift_dbnsfp:
+    input:
+        vcf = "in.vcf",
+        dbNSFP = "dbNSFP.txt.gz"
+    output:
+        out = "out.vcf"
+    message:
+        "Testing SnpSift dbNSFP annotation"
+    log:
+        "annotate.log"
+    wrapper:
+        "master/bio/snpfit/gwasCat"
