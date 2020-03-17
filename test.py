@@ -1163,20 +1163,20 @@ def test_bwa_mem_samblaster():
 
 
 def test_snpsift_vartype():
-    run("bio/snpsift/varType", ["snakemake", "out.vcf", "--use-conda", "-F"])
+    run("bio/snpsift/varType", ["snakemake", "annotated/out.vcf", "--use-conda", "-F"])
 
 
 def test_snpsift_annotate():
-    run("bio/snpsift/annotate", ["snakemake", "out.vcf", "--use-conda", "-F"])
+    run("bio/snpsift/annotate", ["snakemake", "annotated/out.vcf", "--use-conda", "-F"])
 
 
 def test_snpsift_gwascat():
-    run("bio/snpsift/gwasCat", ["snakemake", "out.vcf", "--use-conda", "-F"])
+    run("bio/snpsift/gwasCat", ["snakemake", "annotated/out.vcf", "--use-conda", "-F"])
 
 
 def test_snpsift_dbnsfp():
-    run("bio/snpsift/dbnsfp", ["snakemake", "out.vcf", "--use-conda", "-F"])
+    run("bio/snpsift/dbnsfp", ["snakemake", "annotated/out.vcf", "--use-conda", "-F"])
 
 
 def test_snpsift_genesets():
-    run("bio/snpsift/genesets", ["snakemake", "out.vcf", "--use-conda", "-F"])
+    run("bio/snpsift/geneSets", ["snakemake", "annotated/out.vcf", "--use-conda", "-F"])
