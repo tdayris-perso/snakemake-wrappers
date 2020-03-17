@@ -3,10 +3,10 @@ rule test_snpsift_dbnsfp:
         vcf = "in.vcf",
         dbNSFP = "dbNSFP.txt.gz"
     output:
-        out = "out.vcf"
+        vcf = "annotated/out.vcf"
     message:
         "Testing SnpSift dbNSFP annotation"
     log:
         "annotate.log"
     wrapper:
-        "master/bio/snpfit/dbnsfp"
+        "master/bio/snpsift/dbnsfp"

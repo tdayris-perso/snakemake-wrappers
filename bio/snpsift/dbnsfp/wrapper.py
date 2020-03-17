@@ -14,7 +14,7 @@ log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 extra = snakemake.params.get("extra", "")
 makedirs(dirname(snakemake.output.vcf))
 
-db = snakefile.input.get("dbNSFP", "")
+db = snakemake.input.get("dbNSFP", "")
 if db != "":
     db = "-db {}".format(db)
 
