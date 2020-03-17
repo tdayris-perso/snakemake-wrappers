@@ -1,0 +1,14 @@
+rule test_varscan_trio:
+    input:
+        mpileup = "trio.mipleup"
+    output:
+        snp = "trio.mpileup.out.snp.vcf",
+        indel = "trio.mpileup.out.indel.vcf"
+    message:
+        "Testing varscan trio"
+    params:
+        prefix = "trio.mpileup.out"
+    log:
+        "varscan_trio.log"
+    wrapper:
+        "master/bio/varscan/trio"

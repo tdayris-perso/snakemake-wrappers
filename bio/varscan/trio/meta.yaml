@@ -1,0 +1,12 @@
+---
+name: varscan trio
+description: Trio Calling for de novo Mutations with Varscan
+authors:
+  - Thibault Dayris
+input:
+  - A mpileup file containing complete trio
+output:
+  - A pair of VCF-formatted text file (snp / indel)
+note: |
+  The order of the samples in the mpileup file is VERY important for
+  annotations within varscan. Keep the following order: father, mother, child

@@ -898,6 +898,10 @@ def test_varscan_mpileup2snp():
     run("bio/varscan/somatic", ["snakemake", "vcf/a.snp.vcf", "--use-conda", "-F"])
 
 
+def test_varscan_trio():
+    run("bio/varscan/trio", ["snakemake", "trio.mpileup.snp.vcf", "--use-conda", "-F"])
+
+
 def test_umis_bamtag():
     run("bio/umis/bamtag", ["snakemake", "data/a.annotated.bam", "--use-conda", "-F"])
 
