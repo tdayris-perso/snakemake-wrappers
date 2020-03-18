@@ -1,0 +1,9 @@
+rule bcftools_isec:
+    input:
+        calls=["a.bcf", "b.bcf"]
+    output:
+        "bcftools/intersect.bcf"
+    params:
+        "-c all"
+    wrapper:
+        "master/bio/bcftools/isec"

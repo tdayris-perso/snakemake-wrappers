@@ -115,6 +115,19 @@ def test_bcftools_concat():
         ["snakemake", "--cores", "1", "all.bcf", "--use-conda", "-F"],
     )
 
+def test_bcftools_isec():
+    run(
+        "bio/bcftools/isec",
+        [
+            "snakemake",
+            "--cores",
+            "1",
+            "bcftools/intersect.bcf",
+            "--use-conda",
+            "-F"
+        ]
+    )
+
 
 def test_bcftools_merge():
     run(

@@ -1,0 +1,11 @@
+---
+name: bcftools isec
+description: Creates intersections, unions and complements of VCF/BCF files
+authors:
+  - Thibault Dayris
+input:
+  - A list of VCF/BCF files
+output:
+  - A VCF/BCF file
+note: |
+  Additional threads are only used for compression.
