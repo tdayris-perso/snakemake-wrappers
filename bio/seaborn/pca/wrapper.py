@@ -24,11 +24,6 @@ logging.basicConfig(
     level=logging.DEBUG
 )
 
-# Build output directory if necessary
-if (outdir := basename(dirname(snakemake.output["png"][0]))) != "":
-    makedirs(outdir)
-    logging.debug(f"Directory '{outdir}' created")
-
 # Load data and remove text annotations
 data = pandas.read_csv(
     snakemake.input["counts"],
@@ -38,9 +33,7 @@ data = pandas.read_csv(
 )
 data = data[list(data.select_dtypes(include=[numpy.number]).columns.values)]
 
-condition_dict = {
-    k: v for k, v in zip(data.columns, snakemake.params["conditions"])
-}
+condition_dict = snakemake.params.conditions
 
 # Perform PCA
 nbc = len(data.columns.tolist())
