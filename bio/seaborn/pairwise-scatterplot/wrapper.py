@@ -45,7 +45,7 @@ g = seaborn.pairplot(
     data,
     kind="scatter",
     dropna=True,
-    diag_kind="hist"
+    diag_kind="kde"
 )
 
 matplotlib.pyplot.savefig(
