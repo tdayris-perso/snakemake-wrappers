@@ -19,7 +19,7 @@ txi_rds_path <- base::as.character(x = snakemake@input[["tximport"]]);
 txi <- base::readRDS(
   file = txi_rds_path
 );
-base::write("there", stderr())
+
 # Load experimental design
 coldata_path <- base::as.character(x = snakemake@input[["coldata"]]);
 coldata <- utils::read.table(
@@ -29,7 +29,6 @@ coldata <- utils::read.table(
 );
 rownames(coldata) <- coldata$Sample_id;
 
-base::write("here", stderr())
 # Cast formula as formula instead of string
 formula <- stats::as.formula(
   object = snakemake@params[["design"]]
