@@ -70,14 +70,19 @@ def read_salmon(path: str) -> pandas.DataFrame:
     )
 
 
-if (outdir := dirname(snakemake.output["tsv"])) != "":
-    makedirs(outdir)
+logging.basicConfig(
+    filename=snakemake.log[0],
+    filemode="w",
+    level=logging.DEBUG
+)
 
 merged_frame = None
 
 for quant in snakemake.input["quant"]:
+    logging.debug(f"Reading {quant}")
     data = read_salmon(quant)
 
+    logging.debug("Cleaning dataframe")
     sample_id = basename(dirname(quant))
     if len(suffix := snakemake.params.get("suffix", "")) > 0:
         sample_id = sample_id[:-len(suffix)]
@@ -87,6 +92,7 @@ for quant in snakemake.input["quant"]:
     data = data[[snakemake.params.get("column", "TPM")]]
     data.columns = [sample_id]
 
+    logging.debug("Merging dataframe")
     try:
         merged_frame = pandas.merge(
             merged_frame,
@@ -100,17 +106,21 @@ for quant in snakemake.input["quant"]:
 merged_frame.fillna(0)
 
 if snakemake.params.get("gencode", False) is True:
+    logging.debug("Removing gencode patch ids")
     merged_frame = merged_frame.set_index(
         pandas.DataFrame(merged_frame.index.str.split(".", 1).tolist())[0]
     )
 
 if snakemake.params.get("drop_null", False) is True:
+    logging.debug("Removing null values")
     merged_frame = merged_frame.loc[~(merged_frame == 0).all(axis=1)]
 
 if snakemake.params.get("drop_na", False) is True:
+    logging.debug("Removing NA values")
     merged_frame.dropna(axis=0, how="all", inplace=True)
 
 if (tr2gene_path := snakemake.input.get("tx2gene", None)) is not None:
+    logging.debug("Adding gene names")
     merged_frame = pandas.merge(
         merged_frame,
         read_tx2gene(
@@ -123,6 +133,7 @@ if (tr2gene_path := snakemake.input.get("tx2gene", None)) is not None:
         how="left"
     )
 
+logging.debug("Saving DataFrame to disk")
 merged_frame.to_csv(
     snakemake.output["tsv"],
     sep="\t",
