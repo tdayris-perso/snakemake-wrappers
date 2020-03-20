@@ -42,6 +42,7 @@ def read_tx2gene(path: str,
     t2g.columns = ["Ensembl_Gene_ID", "Ensembl_Transcript_ID", "Hugo_ID"]
 
     if genes is True:
+        logging.debug("Keeping only genes from tx2gene DataFrame")
         t2g = t2g[["Ensembl_Gene_ID", "Hugo_ID"]].drop_duplicates()
         return t2g.set_index("Ensembl_Gene_ID")
 
