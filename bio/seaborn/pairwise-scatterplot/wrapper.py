@@ -43,7 +43,8 @@ seaborn.set(
 
 g = seaborn.pairplot(
     data,
-    diag_kind="kde",
+    kind="scatter",
+    diag_kind="hist",
     diag_kws=dict(shade=True)
 )
 
