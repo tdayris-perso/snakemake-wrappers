@@ -73,7 +73,8 @@ for ax1, ax2 in itertools.permutations(axes, 2):
     g = g.map(
         matplotlib.pyplot.scatter,
         name_ax1,
-        name_ax2
+        name_ax2,
+        s=20
     )
 
     matplotlib.pyplot.title(
