@@ -46,6 +46,9 @@ def read_tx2gene(path: str,
                   .drop_duplicates()
                   .set_index("Ensembl_ID"))
 
+    logging.debug("tx2gene:")
+    logging.debug(t2g.head())
+
     return t2g
 
 
