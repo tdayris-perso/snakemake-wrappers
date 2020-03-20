@@ -44,8 +44,8 @@ seaborn.set(
 g = seaborn.pairplot(
     data,
     kind="scatter",
-    diag_kind="hist",
-    diag_kws=dict(shade=True)
+    dropna=True,
+    diag_kind="hist"
 )
 
 matplotlib.pyplot.savefig(
