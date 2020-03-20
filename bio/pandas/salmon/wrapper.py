@@ -35,18 +35,17 @@ def read_tx2gene(path: str,
     t2g = pandas.read_csv(
         path,
         sep="\t",
-        index_col=0,
+        index_col=None,
         header=(0 if header is True else None),
         dtype=str
     )
-    t2g.columns = ["Ensembl_ID", "Hugo_ID"]
+    t2g.columns = ["Ensembl_Gene_ID", "Ensembl_Transcript_ID", "Hugo_ID"]
 
     if genes is True:
-        t2g = (t2g.reset_index()[["Ensembl_ID", "Hugo_ID"]]
-                  .drop_duplicates()
-                  .set_index("Ensembl_ID"))
+        t2g = t2g[["Ensembl_Gene_ID", "Hugo_ID"]].drop_duplicates()
+        return t2g.set_index("Ensembl_Gene_ID")
 
-    return t2g
+    return t2g.set_index("Ensembl_Transcript_ID")
 
 
 def read_salmon(path: str) -> pandas.DataFrame:
