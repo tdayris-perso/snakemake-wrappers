@@ -43,7 +43,7 @@ seaborn.set(
 
 g = seaborn.pairplot(
     data,
-    diag_kind="kda",
+    diag_kind="kde",
     diag_kws=dict(shade=True)
 )
 
