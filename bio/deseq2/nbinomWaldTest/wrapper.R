@@ -3,7 +3,7 @@
 # This script takes a deseq2 dataset object and performs
 # a negative binomial wald test on it
 
-base::library("DESeq2");     # Differential Gene expression
+base::library(package = "DESeq2");     # Differential Gene expression
 
 # Load DESeq2 dataset
 dds_path <- base::as.character(
@@ -13,18 +13,19 @@ dds <- base::readRDS(file = dds_path);
 
 # Build extra parameters for DESeq2 nbinomWaldTest
 nbinom_extra <- "";
-if ("nbinom_extra" %in% snakemake@params) {
+if ("extra" %in% snakemake@params) {
   nbinom_extra <- base::paste0(
     ", ",
-    base::as.character(x = snakemake@params[["nbinom_extra"]])
+    base::as.character(x = snakemake@params[["extra"]])
   );
 }
+base::message("Libraries and dataset loaded");
 
 # Create object
 wald <- base::eval(
   base::parse(
     text = base::paste0(
-      "DESeq2::nbinomWaldTest(object = dds", nbinom_extra, ");"
+      "DESeq2::nbinomWaldTest(object = dds", extra, ");"
     )
   )
 );
@@ -33,10 +34,12 @@ wald <- base::eval(
 output_rds <- base::as.character(
   x = snakemake@output[["rds"]]
 );
+
 base::saveRDS(
   obj = wald,
   file = output_rds
 );
+base::message("Wald test over, RDS saved");
 
 
 names <- DESeq2::resultsNames(
@@ -66,6 +69,7 @@ if ("fc_threshold" %in% names(snakemake@params)) {
 }
 
 for (resultname in names) {
+  base::message(base::paste("Saving results for", resultname))
   results_frame <- DESeq2::results(
     object = wald,
     name = resultname,
