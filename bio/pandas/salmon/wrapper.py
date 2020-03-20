@@ -35,7 +35,7 @@ def read_tx2gene(path: str,
     t2g = pandas.read_csv(
         path,
         sep="\t",
-        index_col=1,
+        index_col=0,
         header=(0 if header is True else None),
         dtype=str
     )
