@@ -12,9 +12,9 @@ dds_path <- base::as.character(
 dds <- base::readRDS(file = dds_path);
 
 # Build extra parameters for DESeq2 nbinomWaldTest
-nbinom_extra <- "";
+extra <- "";
 if ("extra" %in% snakemake@params) {
-  nbinom_extra <- base::paste0(
+  extra <- base::paste0(
     ", ",
     base::as.character(x = snakemake@params[["extra"]])
   );
