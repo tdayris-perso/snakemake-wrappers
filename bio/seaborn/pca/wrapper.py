@@ -54,7 +54,6 @@ output_prefix = snakemake.params.get("prefix", "pca")
 legend_position = snakemake.params.get("legend_position", "upper center")
 axes = snakemake.params.get("axes", range(1, 4, 1))
 for ax1, ax2 in itertools.permutations(axes, 2):
-    logging.info(f"Building plot for axes: {ax1} / {ax2}")
     results["Conditions"] = [
         condition_dict[i] for i in results.index
     ]
@@ -69,6 +68,7 @@ for ax1, ax2 in itertools.permutations(axes, 2):
     skvar_ax1 = skvar[ax1 - 1] * 100
     name_ax2 = f"PC{ax2}"
     skvar_ax2 = skvar[ax2 - 1] * 100
+    logging.info(f"Building plot: {output_prefix}_{name_ax1}_{name_ax2}.png)
 
     g = g.map(
         matplotlib.pyplot.scatter,
