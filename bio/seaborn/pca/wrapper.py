@@ -74,7 +74,7 @@ for ax1, ax2 in itertools.permutations(axes, 2):
         matplotlib.pyplot.scatter,
         name_ax1,
         name_ax2,
-        s=20
+        s=50
     )
 
     matplotlib.pyplot.title(
