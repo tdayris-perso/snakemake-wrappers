@@ -25,7 +25,7 @@ base::message("Libraries and dataset loaded");
 wald <- base::eval(
   base::parse(
     text = base::paste0(
-      "DESeq2::nbinomWaldTest(object = assay(dds)", extra, ");"
+      "DESeq2::nbinomWaldTest(object = dds", extra, ");"
     )
   )
 );
