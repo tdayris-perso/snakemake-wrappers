@@ -82,7 +82,7 @@ for (resultname in names) {
 
   results_path <- base::file.path(
     output_prefix,
-    base::paste0("Deseq2_", resultname)
+    base::paste0("Deseq2_", resultname, ".tsv")
   );
 
   utils::write.table(
