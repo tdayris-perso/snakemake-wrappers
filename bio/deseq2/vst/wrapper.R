@@ -36,7 +36,7 @@ base::saveRDS(
 
 output_table <- base::as.character(snakemake@output[["tsv"]]);
 tsv <- SummarizedExperiment::assay(vst);
-utils::write.csv(
+utils::write.table(
   x = tsv,
   file = output_table,
   sep = "\t",
