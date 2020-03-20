@@ -26,6 +26,7 @@ dst <- base::readRDS(file = dst_path);
 bg_ids <- IRanges::rownames(x = dds)[
   DelayedArray::rowSums(x = DESeq2::counts(dds)) > 0
 ];
+print(head(bg_ids))
 
 limmago <- pcaExplorer::limmaquickpca2go(
   se = dst,
