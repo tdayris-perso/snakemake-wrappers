@@ -68,7 +68,7 @@ for ax1, ax2 in itertools.permutations(axes, 2):
     skvar_ax1 = skvar[ax1 - 1] * 100
     name_ax2 = f"PC{ax2}"
     skvar_ax2 = skvar[ax2 - 1] * 100
-    logging.info(f"Building plot: {output_prefix}_{name_ax1}_{name_ax2}.png)
+    logging.info(f"Building plot: {output_prefix}_{name_ax1}_{name_ax2}.png")
 
     g = g.map(
         matplotlib.pyplot.scatter,
