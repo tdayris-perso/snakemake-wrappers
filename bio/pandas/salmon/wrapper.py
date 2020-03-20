@@ -46,9 +46,6 @@ def read_tx2gene(path: str,
                   .drop_duplicates()
                   .set_index("Ensembl_ID"))
 
-    logging.debug("tx2gene:")
-    logging.debug(t2g.head())
-
     return t2g
 
 
@@ -107,6 +104,8 @@ for quant in snakemake.input["quant"]:
         merged_frame = data
 
 merged_frame.fillna(0)
+logging.debug("Merged quant frame:")
+logging.debug(merged_frame.head())
 
 if snakemake.params.get("gencode", False) is True:
     logging.debug("Removing gencode patch ids")
@@ -124,13 +123,18 @@ if snakemake.params.get("drop_na", False) is True:
 
 if (tr2gene_path := snakemake.input.get("tx2gene", None)) is not None:
     logging.debug("Adding gene names")
+
+    t2g = read_tx2gene(
+        tr2gene_path,
+        snakemake.params.get("genes", False),
+        snakemake.params.get("header", False)
+    )
+    logging.debug("tx2gene:")
+    logging.debug(t2g.head())
+
     merged_frame = pandas.merge(
         merged_frame,
-        read_tx2gene(
-            tr2gene_path,
-            snakemake.params.get("genes", False),
-            snakemake.params.get("header", False)
-        ),
+        t2g,
         left_index=True,
         right_index=True,
         how="left"
