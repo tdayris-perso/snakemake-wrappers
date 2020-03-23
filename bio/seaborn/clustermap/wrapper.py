@@ -26,7 +26,12 @@ if (outdir := basename(dirname(snakemake.output["png"]))) != "":
     makedirs(outdir)
     logging.debug(f"Directory: '{outdir}' created.")
 
-conditions = snakemake.params["conditions"]
+conditions = pandas.DataFrame.from_dict(
+    snakemake.params["conditions"],
+    orient="index"
+)
+cond_id = snakemake.wildcards.factor
+conditions.columns = [cond_id]
 
 # Load normalized counts
 data = pandas.read_csv(
@@ -38,11 +43,9 @@ data = pandas.read_csv(
 
 # Remove possible text annotations and validate
 data = data[list(data.select_dtypes(include=[numpy.number]).columns.values)]
-logging.debug("Loaded dataset:")
-logging.debug(data.head())
-
-
-if (nbs := len(data.columns.tolist())) != (nbc := len(list(conditions.keys()))):
+nbs = len(data.columns.tolist())
+nbc = len(conditions.index.tolist())
+if nbs != nbc:
     message = (
         f"Expected same number of samples and conditions, got {nbs} != {nbc}"
     )
@@ -57,31 +60,38 @@ cmap = seaborn.diverging_palette(
 )
 
 # Create a categorical palette for samples identification
-condition_lut = dict(
-    zip(
-        map(str, set(conditions.values())),
-        seaborn.husl_palette(len(set(conditions.values())), s=0.45)
-    )
-)
+cond_set = set(conditions[cond_id])
+colors = seaborn.husl_palette(len(cond_set), s=0.45)
+cond_colors = {
+    str(cond): color for cond, color in zip(list(cond_set), list(colors))
+}
+sample_colors = {
+    sample: cond_colors[cond]
+    for sample, cond in zip(conditions.index, conditions[cond_id])
+}
 
 
 # Sorry for that part, yet I could not manage to find any
 # other way to perform quicker multi-level indexing
 data = data.T
-data["Conditions"] = [conditions[idx] for idx in data.index]
+data = pandas.merge(
+    data,
+    conditions,
+    left_index=True,
+    right_index=True,
+    how="left"
+)
 data = (data.reset_index()
-            .set_index(["Conditions", "index"])
+            .set_index([cond_id, "index"])
             .T)
 
-# Convert the palette into vectors
-condition_colors = (pandas.Series(conditions.values(), index=conditions.keys())
-                          .map(condition_lut))
+condition_colors = (pandas.Series(data.columns.get_level_values(cond_id),
+                                  index=data.columns)
+                          .map(cond_colors))
 
 data = data.corr()
 logging.debug("Correlation table:")
 logging.debug(data.head())
-logging.debug("Conditional colors:")
-logging.debug(condition_colors)
 
 # Build graph
 ax = seaborn.clustermap(
