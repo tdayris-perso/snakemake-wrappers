@@ -42,7 +42,7 @@ logging.debug("Loaded dataset:")
 logging.debug(data.head())
 
 
-if (nbs := len(data.columns.tolist())) != (nbc := len(list(condition.keys()))):
+if (nbs := len(data.columns.tolist())) != (nbc := len(list(conditions.keys()))):
     message = (
         f"Expected same number of samples and conditions, got {nbs} != {nbc}"
     )
@@ -60,7 +60,7 @@ cmap = seaborn.diverging_palette(
 condition_lut = dict(
     zip(
         map(str, set(conditions.values())),
-        seaborn.husl_palette(len(set(condition.values())), s=0.45)
+        seaborn.husl_palette(len(set(conditions.values())), s=0.45)
     )
 )
 
