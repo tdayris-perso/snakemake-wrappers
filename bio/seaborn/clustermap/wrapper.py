@@ -26,7 +26,7 @@ if (outdir := basename(dirname(snakemake.output["png"]))) != "":
     makedirs(outdir)
     logging.debug(f"Directory: '{outdir}' created.")
 
-condition_array = snakemake.params["conditions"]
+conditions = snakemake.params["conditions"]
 
 # Load normalized counts
 data = pandas.read_csv(
@@ -42,7 +42,7 @@ logging.debug("Loaded dataset:")
 logging.debug(data.head())
 
 
-if (nbs := len(data.columns.tolist())) != (nbc := len(condition_array)):
+if (nbs := len(data.columns.tolist())) != (nbc := len(list(condition.keys()))):
     message = (
         f"Expected same number of samples and conditions, got {nbs} != {nbc}"
     )
@@ -59,8 +59,8 @@ cmap = seaborn.diverging_palette(
 # Create a categorical palette for samples identification
 condition_lut = dict(
     zip(
-        map(str, set(condition_array)),
-        seaborn.husl_palette(len(set(condition_array)), s=0.45)
+        map(str, set(conditions.values())),
+        seaborn.husl_palette(len(set(condition.values())), s=0.45)
     )
 )
 
@@ -68,13 +68,13 @@ condition_lut = dict(
 # Sorry for that part, yet I could not manage to find any
 # other way to perform quicker multi-level indexing
 data = data.T
-data["Conditions"] = condition_array
+data["Conditions"] = [conditions[idx] for idx in data.index]
 data = (data.reset_index()
             .set_index(["Conditions", "index"])
             .T)
 
 # Convert the palette into vectors
-condition_colors = (pandas.Series(condition_array, index=data.columns)
+condition_colors = (pandas.Series(conditions.values(), index=conditions.keys())
                           .map(condition_lut))
 
 data = data.corr()
