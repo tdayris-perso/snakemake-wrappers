@@ -80,6 +80,8 @@ condition_colors = (pandas.Series(condition_array, index=data.columns)
 data = data.corr()
 logging.debug("Correlation table:")
 logging.debug(data.head())
+logging.debug("Conditional colors:")
+logging.debug(condition_colors)
 
 # Build graph
 ax = seaborn.clustermap(
@@ -102,7 +104,6 @@ ax = seaborn.clustermap(
         (15 if len(data.columns.tolist()) <= 50 else 30),
         (15 if len(data.index.tolist()) < 50 else 30)
     ),
-    square=(snakemake.params.get("square", True) is True),
     robust=(snakemake.params.get("robust", True) is True)
 )
 
