@@ -30,7 +30,7 @@ conditions = pandas.DataFrame.from_dict(
     snakemake.params["conditions"],
     orient="index"
 )
-cond_id = snakemake.wildcards.factor
+cond_id = snakemake.params.get("factor", "Condition")
 conditions.columns = [cond_id]
 
 # Load normalized counts
