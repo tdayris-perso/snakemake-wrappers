@@ -15,7 +15,7 @@ rule test_seaborn_pca:
             lambda wildcards, attempt: min(attempt * 10, 20)
         )
     params:
-        conditions = ["CondA", "CondB"],
+        conditions = {"A": "CondA", "B": "CondB"},
         axes = [1, 2]
     log:
         "logs/test_seaborn_pca.log"
