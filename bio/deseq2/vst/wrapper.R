@@ -21,7 +21,7 @@ if ("extra" %in% names(snakemake@params)) {
 vst <- base::eval(
   base::parse(
     text = base::paste0(
-      "DESeq2::vst(object = dds, ", extra, ");"
+      "DESeq2::vst(object = dds ", extra, ");"
     )
   )
 );
