@@ -1,7 +1,7 @@
 rule test_pcaexplorer_limmago:
     input:
         dds = "dds.RDS",
-        dst = "wald.RDS"
+        dst = "VST.RDS"
     output:
         limmago = "limmago.RDS"
     message:

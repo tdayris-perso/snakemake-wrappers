@@ -1166,7 +1166,7 @@ def test_pcaexplorer_annotation():
 
 
 def test_pcaexplorer_limmago():
-    run("bio/pcaExplorer/limmago", ["snakemake", "limmago.RDS", "--use-conda", "-F"])
+    run("bio/pcaExplorer/limmago", ["snakemake", "limmago.RDS", "--skip-script-cleanup", "--use-conda", "-F"])
 
 
 def test_pcaexplorer_pcaplot():
