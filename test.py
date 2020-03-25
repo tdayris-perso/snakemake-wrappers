@@ -1655,3 +1655,9 @@ def test_bwa_mem_samblaster():
         "bio/bwa/mem-samblaster",
         ["snakemake", "--cores", "1", "mapped/a.bam", "--use-conda", "-F"],
     )
+
+def test_deseq2_rlog():
+    run(
+        "bio/deseq2/rlog",
+        ["snakemake", "--cores", "1", "rlog.tsv", "--use-conda", "-F"]
+    )
