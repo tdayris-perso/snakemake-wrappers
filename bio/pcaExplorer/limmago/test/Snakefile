@@ -16,7 +16,7 @@ rule test_pcaexplorer_limmago:
             lambda wildcards, attempt: min(attempt * 20, 200)
         )
     params:
-        organism = "Hs"
+        extra = "organism = 'Hs'"
     log:
         "logs/test_pcaexplorer_limmago.log"
     wrapper:

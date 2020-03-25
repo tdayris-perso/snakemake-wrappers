@@ -44,7 +44,7 @@ command <- base::paste0(
   ");"
 );
 
-print(command);
+base::message(command);
 
 base::eval(
   base::parse(

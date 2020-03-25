@@ -33,12 +33,27 @@ print(head(bg_ids));
 print(head(dds));
 print(head(dst));
 
-limmago <- pcaExplorer::limmaquickpca2go(
-  se = dst,
-  organism = snakemake@params[["organism"]],
-  background_genes = bg_ids,
-  inputType = "SYMBOL",
-  pca_ngenes = 800
+extra <- "se = dst, background_genes = bg_ids"
+if ("extra" %in% names(snakemake@params)) {
+  extra <- base::paste(
+    extra,
+    snakemake@params[["extra"]],
+    sep = ","
+  )
+}
+
+command <- base::paste0(
+  "pcaExplorer::limmago(",
+  extra,
+  ");"
+);
+
+base::message(command);
+
+base::eval(
+  base::parse(
+    text = command
+  )
 );
 base::message(
   "Go analysis of PCA components performed"
