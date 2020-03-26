@@ -11,31 +11,33 @@ dds <- base::readRDS(file = dds_path);
 # Recover extra parameters
 extra <- "";
 if ("extra" %in% names(snakemake@params)) {
-  extra <- base::paste0(
-    ", ",
+  extra <- base::paste(
+    "object = dds",
     base::as.character(x = snakemake@params[["extra"]])
+    sep = ", "
   );
 }
 
 # Create object
-vst <- base::eval(
+rlog <- base::eval(
   base::parse(
     text = base::paste0(
-      "DESeq2::rlogTransformation(object = dds ", extra, ");"
+      "DESeq2::rlogTransformation(", extra, ");"
     )
   )
 );
 
+tsv <- SummarizedExperiment::assay(rlog);
+
 # Save results
 output_rds <- base::as.character(snakemake@output[["rds"]]);
 base::saveRDS(
-  obj = vst,
+  obj = rlog,
   file = output_rds
 );
 
 
 output_table <- base::as.character(snakemake@output[["tsv"]]);
-tsv <- SummarizedExperiment::assay(vst);
 utils::write.table(
   x = tsv,
   file = output_table,
