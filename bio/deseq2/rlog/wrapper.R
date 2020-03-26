@@ -13,7 +13,7 @@ extra <- "";
 if ("extra" %in% names(snakemake@params)) {
   extra <- base::paste(
     "object = dds",
-    base::as.character(x = snakemake@params[["extra"]])
+    base::as.character(x = snakemake@params[["extra"]]),
     sep = ", "
   );
 }
