@@ -17,6 +17,6 @@ rule test_pcaexplorer_pcascree:
     params:
         extra = "type = c('pev')"
     log:
-        "logs/test_pcaexplorer_pcaplot.log"
+        "logs/test_pcaexplorer_pcascree.log"
     wrapper:
         "master/bio/pcaExplorer/PCAScree"

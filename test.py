@@ -1175,3 +1175,6 @@ def test_pcaexplorer_pcaplot():
 
 def test_pcaexplorer_pcascree():
     run("bio/pcaExplorer/PCAScree", ["snakemake", "plot.png", "--use-conda", "-F"])
+
+def test_pcaexplorer_plotCorrs():
+    run("bio/pcaExplorer/plotCorrs", ["snakemake", "plot.png", "--use-conda", "-F"])
