@@ -1,6 +1,6 @@
 #!/usr/bin/R
 
-# This script takes a deseq2 dataset object and performs
+# This script takes a deseq2 transform object and performs
 # a pca on it before plotting requested axes
 
 
