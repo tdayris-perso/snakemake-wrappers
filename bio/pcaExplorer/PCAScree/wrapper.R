@@ -1,7 +1,7 @@
 #!/usr/bin/R
 
 # This script takes a deseq2 dataset object and performs
-# a pca on it before plotting requested axes
+# a pca on it before plotting loadings
 
 
 base::library(package = "DESeq2");        # Differential analysis
