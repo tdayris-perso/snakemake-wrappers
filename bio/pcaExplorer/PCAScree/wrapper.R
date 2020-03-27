@@ -1,6 +1,6 @@
 #!/usr/bin/R
 
-# This script takes a deseq2 dataset object and performs
+# This script takes a deseq2 transform object and performs
 # a pca on it before plotting loadings
 
 
@@ -17,10 +17,11 @@ dst_path <- base::as.character(
   x = snakemake@input[["dst"]]
 );
 dst <- base::readRDS(file = dst_path);
+pca <- stats::prcomp(t(SummarizedExperiment::assay(dst)))
 
 
 # Load extra parameters
-extra <- "x = dst"
+extra <- "pca"
 if ("extra" %in% names(snakemake@params)) {
   extra <- base::paste(
       extra,
@@ -39,7 +40,7 @@ png(
 );
 
 command <- base::paste0(
-  "pcaExplorer::pcaplot(",
+  "pcaExplorer::pcascree(",
   extra,
   ");"
 );
