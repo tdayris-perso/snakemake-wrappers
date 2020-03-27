@@ -1171,3 +1171,7 @@ def test_pcaexplorer_limmago():
 
 def test_pcaexplorer_pcaplot():
     run("bio/pcaExplorer/PCA", ["snakemake", "plot.png", "--use-conda", "-F"])
+
+
+def test_pcaexplorer_pcascree():
+    run("bio/pcaExplorer/PCAScree", ["snakemake", "plot.png", "--use-conda", "-F"])
