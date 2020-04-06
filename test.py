@@ -1200,3 +1200,14 @@ def test_gene_box_count():
 
 def test_pval_hist():
     run("bio/seaborn/pval-histogram", ["snakemake", "--use-conda", "plot.png", "-F"])
+
+def test_filter_design():
+    run(
+        "bio/pandas/filter_design",
+        ["snakemake",
+         "--use-conda",
+         "--core",
+         "1",
+         "-F",
+         "filtered/design.tsv"]
+    )
