@@ -33,7 +33,7 @@ print(head(bg_ids));
 print(head(dds));
 print(head(dst));
 
-extra <- "dst, background_genes = bg_ids"
+extra <- "dst"
 if ("extra" %in% names(snakemake@params)) {
   extra <- base::paste(
     extra,
