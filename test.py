@@ -1211,3 +1211,16 @@ def test_filter_design():
          "-F",
          "filtered/design.tsv"]
     )
+
+def test_deseq2_to_gseaapp():
+    run(
+        "bio/pandas/deseq2_to_gseaapp",
+        [
+            "snakemake",
+            "results/complete.tsv",
+            "--use-conda",
+            "-F",
+            "--cores",
+            "1"
+        ]
+    )
