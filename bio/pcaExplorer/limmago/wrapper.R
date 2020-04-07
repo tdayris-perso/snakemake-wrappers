@@ -43,7 +43,7 @@ if ("extra" %in% names(snakemake@params)) {
 }
 
 command <- base::paste0(
-  "pcaExplorer::limmago(",
+  "pcaExplorer::limmaquickpca2go(",
   extra,
   ");"
 );
