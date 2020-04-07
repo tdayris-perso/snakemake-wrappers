@@ -2,7 +2,7 @@
 # conding: utf-8
 
 """
-Filter a design file
+Filter a DESeq2 output file
 """
 
 __author__ = "Thibault Dayris"
@@ -73,7 +73,7 @@ data["Cluster_Sig"] = [
     for padj in data["padj"]
 ]
 
-if general_table_only is False:
+if "fc_sig" in snakemake["output"].keys():
     logging.debug("Prining the log2(FC) / Significance table")
     tmp = data[["log2FoldChange", "Cluster_Sig"]]
     tmp.reset_index(inplace=True)
@@ -84,6 +84,7 @@ if general_table_only is False:
         index=False
     )
 
+if "fc_fc" in snakemake["output"].keys():
     logging.debug("Prining the log2(FC) / FC cluster table")
     tmp = data[data["Cluster_Sig"] != "Non-Significative"]
     tmp = tmp[["log2FoldChange", "Cluster_FC"]]
@@ -96,6 +97,7 @@ if general_table_only is False:
         index=False
     )
 
+if "padj_sig" in snakemake["output"].keys():
     logging.debug("Prining the adjusted P-Value / Significance table")
     tmp = data[["padj", "Cluster_Sig"]]
     tmp.reset_index(inplace=True)
@@ -106,6 +108,7 @@ if general_table_only is False:
         index=False
     )
 
+if "padj_fc" in snakemake["output"].keys():
     logging.debug("Prining the adjusted P-Value / FoldChange table")
     tmp = data[data["Cluster_FC"] != "Non-Significative"]
     tmp = tmp[["padj", "Cluster_FC"]]
@@ -117,12 +120,13 @@ if general_table_only is False:
         index=False
     )
 
-logging.debug("Prining the complete table")
-tmp = data[["log2FoldChange", "padj", "Cluster_FC", "Cluster_Sig"]]
-tmp.reset_index(inplace=True)
-tmp.columns = ["gene_name", "stat_change", "padj", "cluster", "significance"]
-tmp.to_csv(
-    snakemake.output.complete,
-    sep="\t",
-    index=False
-)
+if "complete" in snakemake["output"].keys():
+    logging.debug("Prining the complete table")
+    tmp = data[["log2FoldChange", "padj", "Cluster_FC", "Cluster_Sig"]]
+    tmp.reset_index(inplace=True)
+    tmp.columns = ["gene_name", "stat_change", "padj", "cluster", "significance"]
+    tmp.to_csv(
+        snakemake.output.complete,
+        sep="\t",
+        index=False
+    )
