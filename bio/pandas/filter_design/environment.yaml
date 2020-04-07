@@ -1,5 +1,5 @@
 ---
-name: FIlter design
+name: Filter design
 channels:
   - bioconda
   - conda-forge
