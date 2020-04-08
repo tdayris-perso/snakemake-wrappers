@@ -1181,3 +1181,6 @@ def test_pcaexplorer_plotCorrs():
 
 def test_pcaexplorer_distro_expr():
     run("bio/pcaExplorer/distro_expr", ["snakemake", "plot.png", "--use-conda", "-F"])
+
+def test_pcaexplorer_pair_corr():
+    run("bio/pcaExplorer/pair_corr", ["snakemake", "plot.png", "--use-conda", "-F"])

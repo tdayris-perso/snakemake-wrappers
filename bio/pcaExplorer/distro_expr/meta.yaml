@@ -1,12 +1,12 @@
 ---
 name: pcaExplorer distro_expr
-description: Plot the distribution expression intensity values
+description: Plot the distribution of the sample expression values
 authors:
   - Thibault Dayris
 input:
   - A normalized dds (vst/rlog) of all samples and targets
 output:
-  - A png image of the expression distribution
+  - A png image of the expression distribution accross samples
 note: |
   Parameters:
 
