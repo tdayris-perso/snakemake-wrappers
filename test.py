@@ -1178,3 +1178,6 @@ def test_pcaexplorer_pcascree():
 
 def test_pcaexplorer_plotCorrs():
     run("bio/pcaExplorer/plotCorrs", ["snakemake", "plot.png", "--use-conda", "-F"])
+
+def test_pcaexplorer_distro_expr():
+    run("bio/pcaExplorer/distro_expr", ["snakemake", "plot.png", "--use-conda", "-F"])
